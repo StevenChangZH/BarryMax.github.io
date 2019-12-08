@@ -1,8 +1,5 @@
-const TestNetEGT = "0x692a70D2e424a56D2C6C27aA97D1a86395877b3A";
+const TestNetEGT = "0x5e7f6a829fa37f2ceb01c19610a409ab9485578e";
 const EGT = "0x8e1b448ec7adfc7fa35fc2e885678bd323176e34";
-
-const NodeUrl = "HTTP://127.0.0.1:8545";
-//const NodeUrl = "https://mainnet.infura.io/v3/24d2c3590549486981b3d9261e658ff5"; // @todo write the HOST of Ethereum-Node
 
 const ABI = [{
     "constant": true,
@@ -195,18 +192,16 @@ function getTransactionReceiptMined(txHash) {
 async function initPayment(unityInstance) {
     const payETH = async function (amount, receiver) {
         try {
-        	console.log("!!!! Pay ETH");
+            console.log("!!!! Pay ETH");
             const accounts = await web3.eth.getAccounts();
             const sender = accounts[0];
-            console.log("!!!! Pay from " + sender);
-            console.log("!!!! Pay to " + receiver);
+            console.log("!!!! Pay from " + sender + " to " + receiver + " with amount:" + amount);
             const txHash = await new Promise(function (resolve, rej) {
                 web3.eth.sendTransaction({
                     to: receiver,
                     from: sender,
                     value: web3.utils.toWei(amount.toString()),
                 }, function (err, res) {
-                	console.log("!!!! error: " + err);
                     if (err) rej(err);
                     resolve(res)
                 })
@@ -279,3 +274,4 @@ window.addEventListener('load', async () => {
         alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
     }
 });
+
